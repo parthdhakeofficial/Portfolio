@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parth Dhake — AI Engineer & Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBFAFC;
+    --surface: #FFFFFF;
+    --ink: #1A1523;
+    --ink-soft: #6B6478;
+    --line: #E7E3ED;
+    --violet: #6D28D9;
+    --violet-deep: #4C1D95;
+    --violet-soft: #A78BFA;
+    --violet-wash: #F3EEFC;
+    --mono: 'Space Mono', monospace;
+    --display: 'Fraunces', serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--violet-soft); color:var(--ink); }
+
+  :focus-visible{
+    outline:2px solid var(--violet);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(251,250,252,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-logo{
+    font-family:var(--mono); font-weight:700; font-size:15px;
+    letter-spacing:0.02em;
+  }
+  .nav-logo span{ color:var(--violet); }
+  .nav-links{ display:flex; gap:28px; list-style:none; }
+  .nav-links a{
+    font-size:13px; font-family:var(--mono); color:var(--ink-soft);
+    text-transform:lowercase; letter-spacing:0.03em;
+    transition:color 0.2s;
+    position:relative;
+  }
+  .nav-links a:hover{ color:var(--violet); }
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding:4px; }
+  .nav-toggle span{ display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; transition:0.25s; }
+
+  @media (max-width: 720px){
+    .nav-links{
+      position:fixed; top:60px; left:0; right:0;
+      background:var(--surface); flex-direction:column; gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden; transition:max-height 0.3s ease;
+    }
+    .nav-links.open{ max-height:400px; }
+    .nav-links li{ border-top:1px solid var(--line); }
+    .nav-links a{ display:block; padding:16px 32px; }
+    .nav-toggle{ display:block; }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:absolute; inset:0; z-index:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse 70% 60% at 60% 40%, black 0%, transparent 75%);
+    opacity:0.6;
+  }
+  .hero-inner{ position:relative; z-index:1; width:100%; }
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--violet);
+    display:flex; align-items:center; gap:10px; margin-bottom:24px;
+    letter-spacing:0.04em;
+  }
+  .eyebrow .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--violet);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.4; transform:scale(0.8); }
+  }
+  h1.hero-title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(2.6rem, 7vw, 5rem);
+    line-height:1.02;
+    letter-spacing:-0.02em;
+    max-width:900px;
+  }
+  h1.hero-title em{
+    font-style:italic; font-weight:500; color:var(--violet);
+  }
+  .hero-sub{
+    margin-top:28px;
+    font-size:18px; color:var(--ink-soft);
+    max-width:560px;
+    line-height:1.7;
+  }
+  .hero-sub strong{ color:var(--ink); font-weight:600; }
+  .hero-actions{ display:flex; gap:16px; margin-top:40px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px;
+    padding:14px 26px; border-radius:4px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:all 0.2s ease;
+    letter-spacing:0.02em;
+  }
+  .btn-primary{
+    background:var(--ink); color:#fff;
+    border:1px solid var(--ink);
+  }
+  .btn-primary:hover{ background:var(--violet); border-color:var(--violet); transform:translateY(-2px); }
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--ink);
+  }
+  .btn-ghost:hover{ border-color:var(--violet); color:var(--violet); transform:translateY(-2px); }
+
+  .hero-meta{
+    margin-top:64px; display:flex; gap:40px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft);
+  }
+  .hero-meta div{ display:flex; flex-direction:column; gap:4px; }
+  .hero-meta b{ color:var(--ink); font-size:20px; font-family:var(--display); font-weight:600; }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding:120px 0; border-top:1px solid var(--line); position:relative; }
+  .section-head{ margin-bottom:56px; }
+  .section-num{
+    font-family:var(--mono); font-size:12px; color:var(--violet-soft);
+    display:block; margin-bottom:12px; letter-spacing:0.08em;
+  }
+  .section-title{
+    font-family:var(--display); font-weight:600;
+    font-size:clamp(1.9rem, 4vw, 2.8rem);
+    letter-spacing:-0.01em;
+  }
+  .section-title em{ font-style:italic; color:var(--violet); font-weight:500; }
+  .section-desc{ color:var(--ink-soft); margin-top:16px; max-width:560px; font-size:16px; }
+
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:64px; align-items:start; }
+  .about-text p{ color:var(--ink-soft); font-size:16px; margin-bottom:18px; max-width:520px; }
+  .about-text p strong{ color:var(--ink); font-weight:600; }
+  .about-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:28px; font-family:var(--mono); font-size:13px;
+  }
+  .about-card .card-title{ color:var(--violet); margin-bottom:16px; font-size:12px; letter-spacing:0.05em; }
+  .about-card ul{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .about-card li{ display:flex; justify-content:space-between; color:var(--ink-soft); border-bottom:1px dashed var(--line); padding-bottom:12px; }
+  .about-card li:last-child{ border-bottom:none; padding-bottom:0; }
+  .about-card li span:last-child{ color:var(--ink); text-align:right; }
+
+  @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- SKILLS ---------- */
+  .skills-flow{
+    display:flex; flex-direction:column; gap:0;
+  }
+  .skill-row{
+    display:grid; grid-template-columns:180px 1fr; gap:24px;
+    padding:22px 0; border-bottom:1px solid var(--line);
+    align-items:baseline;
+  }
+  .skill-row:first-child{ border-top:1px solid var(--line); }
+  .skill-label{ font-family:var(--mono); font-size:13px; color:var(--violet); letter-spacing:0.02em; }
+  .skill-tags{ display:flex; flex-wrap:wrap; gap:10px; }
+  .skill-tag{
+    font-size:14px; padding:6px 14px; border-radius:100px;
+    border:1px solid var(--line); color:var(--ink);
+    transition:all 0.2s;
+    background:var(--surface);
+  }
+  .skill-tag:hover{ border-color:var(--violet); background:var(--violet-wash); color:var(--violet-deep); }
+
+  @media (max-width:640px){
+    .skill-row{ grid-template-columns:1fr; gap:10px; }
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects-list{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .project{
+    background:var(--surface); padding:40px; display:grid; grid-template-columns:220px 1fr; gap:36px;
+    transition:background 0.25s;
+  }
+  .project:hover{ background:var(--violet-wash); }
+  .project-meta{ display:flex; flex-direction:column; gap:10px; }
+  .project-name{ font-family:var(--display); font-weight:600; font-size:20px; line-height:1.25; }
+  .project-stack{ font-family:var(--mono); font-size:11px; color:var(--violet); line-height:1.7; }
+  .project-desc ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .project-desc li{
+    color:var(--ink-soft); font-size:15px; padding-left:18px; position:relative;
+  }
+  .project-desc li::before{
+    content:"→"; position:absolute; left:0; color:var(--violet-soft); font-family:var(--mono);
+  }
+
+  @media (max-width:720px){
+    .project{ grid-template-columns:1fr; gap:14px; padding:28px 24px; }
+  }
+
+  /* ---------- EDUCATION / EXPERIENCE TIMELINE ---------- */
+  .timeline{ position:relative; padding-left:36px; }
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);
+  }
+  .t-item{ position:relative; padding-bottom:40px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:""; position:absolute; left:-36px; top:4px; width:11px; height:11px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--violet); z-index:1;
+  }
+  .t-date{ font-family:var(--mono); font-size:12px; color:var(--violet); margin-bottom:6px; letter-spacing:0.03em; }
+  .t-title{ font-family:var(--display); font-weight:600; font-size:19px; margin-bottom:4px; }
+  .t-org{ color:var(--ink-soft); font-size:14px; }
+  .t-detail{ color:var(--ink-soft); font-size:14px; margin-top:8px; max-width:480px; }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .achieve-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .achieve-card{ background:var(--surface); padding:32px 24px; text-align:left; }
+  .achieve-num{ font-family:var(--display); font-size:2.6rem; font-weight:600; color:var(--violet); line-height:1; }
+  .achieve-label{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin-top:10px; }
+  .cert-list{ margin-top:56px; display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  .cert-item{
+    background:var(--surface); padding:20px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  .cert-name{ font-weight:500; font-size:15px; }
+  .cert-issuer{ font-family:var(--mono); font-size:12px; color:var(--violet); }
+
+  @media (max-width:800px){ .achieve-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:480px){ .achieve-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- CONTACT ---------- */
+  .contact-section{ border-top:1px solid var(--line); }
+  .contact-inner{ display:flex; flex-direction:column; align-items:flex-start; gap:32px; }
+  .contact-title{
+    font-family:var(--display); font-weight:600;
+    font-size:clamp(2.2rem, 6vw, 4rem); letter-spacing:-0.02em; line-height:1.05;
+  }
+  .contact-title em{ font-style:italic; color:var(--violet); font-weight:500; }
+  .contact-links{ display:flex; flex-direction:column; gap:0; width:100%; max-width:560px; }
+  .contact-link{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 0; border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:14px;
+    transition:padding-left 0.2s, color 0.2s;
+  }
+  .contact-link:hover{ padding-left:10px; color:var(--violet); }
+  .contact-link .arrow{ color:var(--violet-soft); transition:transform 0.2s; }
+  .contact-link:hover .arrow{ transform:translateX(4px); }
+
+  footer{
+    padding:32px; text-align:center; font-family:var(--mono); font-size:12px; color:var(--ink-soft);
+    border-top:1px solid var(--line);
+  }
+  footer span{ color:var(--violet); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">parth<span>.dev</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#journey">journey</a></li>
+      <li><a href="#achievements">achievements</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow"><span class="dot"></span>OPEN TO AGENTIC AI / GEN AI ENGINEERING ROLES</div>
+    <h1 class="hero-title">Parth Dhake builds systems where <em>language models</em> actually do the work.</h1>
+    <p class="hero-sub">CS Engineering student in Ch. Sambhajinagar, focused on <strong>agentic AI</strong>, <strong>RAG pipelines</strong>, and <strong>generative AI</strong> — building full-stack AI products, not just notebooks.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View projects →</a>
+      <a href="mailto:parthdhake07@gmail.com" class="btn btn-ghost">Say hello</a>
+    </div>
+    <div class="hero-meta">
+      <div><b>5</b>academic AI projects</div>
+      <div><b>4</b>agent & RAG frameworks</div>
+      <div><b>8</b>certifications</div>
+      <div><b>2027</b>expected graduation</div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">01 · About</span>
+      <h2 class="section-title">Product-minded, <em>model-fluent</em>.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a <strong>Computer Science Engineering</strong> student who got into AI the practical way — by building things. My projects span the full stack of a modern LLM application: <strong>retrieval pipelines</strong>, <strong>multi-agent orchestration</strong>, and the unglamorous plumbing (auth, dashboards, APIs) that turns a model into a product people can actually use.</p>
+        <p>I work comfortably across <strong>GPT, Gemini, Grok, and Claude</strong>, and I'm equally at home fine-tuning a classifier as I am wiring a CrewAI agent to scrape the web and write copy. My focus going forward is <strong>agentic AI and generative AI engineering</strong> — deepened through Anthropic Academy's applied Claude courses.</p>
+      </div>
+      <div class="about-card reveal">
+        <div class="card-title">// quick facts</div>
+        <ul>
+          <li><span>Location</span><span>Ch. Sambhajinagar, MH</span></li>
+          <li><span>Degree</span><span>B.Tech CSE, 2023–27</span></li>
+          <li><span>CGPA</span><span>6.18</span></li>
+          <li><span>Core stack</span><span>Python · LangChain</span></li>
+          <li><span>Focus</span><span>RAG · Multi-Agent AI</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02 · Skills</span>
+      <h2 class="section-title">The <em>stack</em> behind the projects.</h2>
+    </div>
+    <div class="skills-flow reveal">
+      <div class="skill-row">
+        <div class="skill-label">languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">JavaScript</span><span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label">ai & models</div>
+        <div class="skill-tags">
+          <span class="skill-tag">GPT</span><span class="skill-tag">Gemini</span><span class="skill-tag">Grok</span><span class="skill-tag">Claude</span><span class="skill-tag">RAG Pipelines</span><span class="skill-tag">Model Fine-tuning</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label">frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Transformers</span><span class="skill-tag">LangChain</span><span class="skill-tag">LangGraph</span><span class="skill-tag">CrewAI</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label">data</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Preprocessing</span><span class="skill-tag">Vector Databases</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-label">software eng</div>
+        <div class="skill-tags">
+          <span class="skill-tag">API Design & Integration</span><span class="skill-tag">OOP</span><span class="skill-tag">DSA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">03 · Projects</span>
+      <h2 class="section-title">Five builds, <em>end to end</em>.</h2>
+      <p class="section-desc">Academic and self-directed projects from coursework — from classical ML to agentic pipelines, each built as a working application, not just a model. More on GitHub.</p>
+    </div>
+    <div class="projects-list reveal">
+
+      <div class="project">
+        <div class="project-meta">
+          <div class="project-name">Language Detection System</div>
+          <div class="project-stack">React · Pydantic · Python · HuggingFace</div>
+        </div>
+        <div class="project-desc">
+          <ul>
+            <li>Full-stack ML app classifying language from unstructured text using Naive Bayes & Logistic Regression, trained on HuggingFace's papluca dataset.</li>
+            <li>End-to-end pipeline from pickle-serialized model training to FastAPI production deployment — with auth, prediction history, and an admin analytics dashboard.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-meta">
+          <div class="project-name">Sales KPI Analytics Dashboard</div>
+          <div class="project-stack">Python · SQL · Pandas · Flask · Seaborn</div>
+        </div>
+        <div class="project-desc">
+          <ul>
+            <li>Real-time dashboard automating tracking of Revenue, Profit Margin, Sales Growth, AOV, and Retention — cutting manual reporting effort.</li>
+            <li>Applied K-Means, Logistic Regression, and Random Forest to segment customers and sharpen sales forecasting.</li>
+            <li>Interactive Seaborn/Matplotlib visualizations on a Flask backend for faster, data-driven decisions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-meta">
+          <div class="project-name">Marketing CrewAI Agent</div>
+          <div class="project-stack">CrewAI · Python · Gemini LLM</div>
+        </div>
+        <div class="project-desc">
+          <ul>
+            <li>Multi-agent marketing automation system orchestrating specialized agents for research, scraping, and content generation.</li>
+            <li>Integrated SerperDev search, site scraping, and file I/O tools on a Gemini 2.0 Flash backend to autonomously plan and execute campaigns.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-meta">
+          <div class="project-name">Shopping Assistant Agent</div>
+          <div class="project-stack">LangChain · SQL · Streamlit</div>
+        </div>
+        <div class="project-desc">
+          <ul>
+            <li>Conversational assistant connecting an LLM agent to a SQL database for natural-language product search and recommendations.</li>
+            <li>Deployed via Streamlit for real-time, interactive querying of product data.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-meta">
+          <div class="project-name">RAG Telecom Support Chatbot</div>
+          <div class="project-stack">LangGraph · LangChain · Streamlit</div>
+        </div>
+        <div class="project-desc">
+          <ul>
+            <li>Retrieval-Augmented Generation chatbot for telecom support, using LangGraph to manage stateful, multi-turn conversations.</li>
+            <li>Retrieval chain grounds responses in domain-specific knowledge; deployed via Streamlit for real-time use.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <p class="section-desc reveal" style="margin-top:28px;">These are college-based and self-directed builds rather than deployed production products. Full source and more projects are on <a href="https://github.com/parthdhakeofficial" target="_blank" rel="noopener" style="color:var(--violet); text-decoration:underline;">GitHub</a>.</p>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">04 · Education & Experience</span>
+      <h2 class="section-title">The <em>timeline</em> so far.</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="t-item">
+        <div class="t-date">Dec 2023 — Jun 2027</div>
+        <div class="t-title">B.Tech, Computer Science Engineering</div>
+        <div class="t-org">Deogiri Institute of Engineering and Management Studies, Ch. Sambhajinagar</div>
+        <div class="t-detail">CGPA: 6.18. Coursework and independent projects concentrated on applied machine learning, NLP, and agentic AI systems.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">Ongoing</div>
+        <div class="t-title">Independent & Academic AI Project Building</div>
+        <div class="t-org">Self-directed and coursework, 5 projects</div>
+        <div class="t-detail">Hands-on experience across the LLM app lifecycle — retrieval systems, multi-agent orchestration, model fine-tuning, and deployment.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">2025 — Present</div>
+        <div class="t-title">Applied AI & Agentic Engineering Training</div>
+        <div class="t-org">Anthropic Academy · Apna College</div>
+        <div class="t-detail">Eight completed courses spanning Claude fundamentals, agentic coding, MCP, AI fluency frameworks, DSA, and full-stack web development.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">05 · Achievements</span>
+      <h2 class="section-title">Where the <em>work</em> shows up.</h2>
+    </div>
+    <div class="achieve-grid reveal">
+      <div class="achieve-card">
+        <div class="achieve-num">5</div>
+        <div class="achieve-label">AI projects built end-to-end</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-num">4</div>
+        <div class="achieve-label">LLM providers integrated</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-num">4</div>
+        <div class="achieve-label">Agentic/RAG frameworks used</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-num">8</div>
+        <div class="achieve-label">Certifications completed</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--mono); font-size:13px; color:var(--violet); letter-spacing:0.05em; margin-top:56px; margin-bottom:16px;">// certifications</h3>
+    <div class="cert-list reveal">
+      <div class="cert-item"><span class="cert-name">Claude 101</span><span class="cert-issuer">Anthropic Academy</span></div>
+      <div class="cert-item"><span class="cert-name">Claude Code 101</span><span class="cert-issuer">Anthropic Academy</span></div>
+      <div class="cert-item"><span class="cert-name">Claude Code in Action</span><span class="cert-issuer">Anthropic Academy</span></div>
+      <div class="cert-item"><span class="cert-name">Introduction to Claude Cowork</span><span class="cert-issuer">Anthropic Academy</span></div>
+      <div class="cert-item"><span class="cert-name">Model Context Protocol: Advanced Topics</span><span class="cert-issuer">Anthropic Academy</span></div>
+      <div class="cert-item"><span class="cert-name">AI Fluency: Frameworks & Foundations</span><span class="cert-issuer">Anthropic Academy</span></div>
+      <div class="cert-item"><span class="cert-name">Alpha — DSA with Java</span><span class="cert-issuer">Apna College</span></div>
+      <div class="cert-item"><span class="cert-name">Delta — Full Stack Web Development</span><span class="cert-issuer">Apna College</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="wrap">
+    <div class="contact-inner reveal">
+      <div class="section-num">06 · Contact</div>
+      <h2 class="contact-title">Building something with <em>LLMs</em>? Let's talk.</h2>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:parthdhake07@gmail.com"><span>Email</span><span>parthdhake07@gmail.com <span class="arrow">→</span></span></a>
+        <a class="contact-link" href="tel:8668823060"><span>Phone</span><span>+91 86688 23060 <span class="arrow">→</span></span></a>
+        <a class="contact-link" href="#"><span>Location</span><span>Ch. Sambhajinagar, Maharashtra <span class="arrow">→</span></span></a>
+        <a class="contact-link" href="https://www.linkedin.com/in/parth-dhake-dev" target="_blank" rel="noopener"><span>LinkedIn</span><span>View profile <span class="arrow">→</span></span></a>
+        <a class="contact-link" href="https://github.com/parthdhakeofficial" target="_blank" rel="noopener"><span>GitHub</span><span>View profile <span class="arrow">→</span></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Designed & built by <span>Parth Dhake</span> — © 2026
+</footer>
+
+<script>
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
